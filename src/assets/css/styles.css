@@ -1,0 +1,21 @@
+.car-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 20px;
+  }
+  .car-card {
+    border: 1px solid #ddd;
+    padding: 20px;
+    cursor: pointer;
+    transition: transform 0.3s;
+  }
+  .car-card:hover {
+    transform: scale(1.05);
+  }
+  .car-details img {
+    width: 100%;
+  }
+  button {
+    margin-top: 10px;
+  }
+  

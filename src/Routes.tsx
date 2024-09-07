@@ -1,19 +1,20 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
-import CarDetailsPage from './pages/CarDetailsPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
+import CarDetailsPage from './pages/CarDetailsPage';
+import PrivateRoute from './components/PrivateRoute';
 
-const App: React.FC = () => (
-  <Router>
+const AppRoutes: React.FC = () => {
+  return (
     <Routes>
       <Route path="/" element={<HomePage />} />
-      <Route path="/cars/:carId" element={<CarDetailsPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
+      <Route path="/car/:id" element={<PrivateRoute element={<CarDetailsPage />} path="/car/:id" />} />
     </Routes>
-  </Router>
-);
+  );
+};
 
-export default App;
+export default AppRoutes;
