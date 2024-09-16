@@ -15,9 +15,10 @@ interface CarCardProps {
 
 const CarCard: React.FC<CarCardProps> = ({ car }) => {
   const navigate = useNavigate();  // Use useNavigate
+  const placeholderImage = 'https://via.placeholder.com/150?text=No+Image';
 
   const handleClick = () => {
-    navigate(`/car/${car.id}`);  // Replace history.push with navigate
+    navigate(`/cars/${car.id}`);  // Replace history.push with navigate
   };
 
   return (
@@ -31,13 +32,12 @@ const CarCard: React.FC<CarCardProps> = ({ car }) => {
         width: '150px',
       }}
     >
-      {car.picture ? (
-        <img src={`http://localhost:3000/${car.picture}`} alt={car.make} style={{ width: '100%' }} />
-      ) : (
-        <div>No Image</div>
-      )}
-      <h3>{car.make}</h3>
-      <p>{car.model}</p>
+      <img
+        src={car.picture ? `http://localhost:3000/uploads/cars/${car.picture}` : placeholderImage}
+        alt={car.make}
+        style={{ width: '100%', borderRadius: '5px' }}
+      />
+      <h3>{car.make} {car.model}</h3>
       <p>{car.year}</p>
     </div>
   );
