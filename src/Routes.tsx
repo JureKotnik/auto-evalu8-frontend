@@ -12,7 +12,7 @@ const AppRoutes: React.FC = () => {
       <Route path="/" element={<HomePage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
-      <Route path="/car/:id" element={<PrivateRoute element={<CarDetailsPage />} path="/car/:id" />} />
+      <Route path="/cars/:id" element={<PrivateRoute element={<CarDetailsPage />} path="/cars/:id" />} />
     </Routes>
   );
 };
