@@ -29,7 +29,7 @@ const Navbar: React.FC = () => {
 
   return (
     <nav style={{ padding: '10px', borderBottom: '1px solid #ddd', marginBottom: '20px' }}>
-      <h1>Car Review App</h1>
+      <h1>AutoEvalu8</h1>
       <div style={{ display: 'flex', gap: '10px' }}>
         {isAuthenticated ? (
           <>
