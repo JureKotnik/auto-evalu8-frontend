@@ -57,13 +57,13 @@ const CarDetailsPage: React.FC = () => {
   // Define a placeholder image URL
   const placeholderImage = 'https://via.placeholder.com/300x200?text=No+Image+Available';
 
-  // Calculate average overall rating
+  // Calculate average overall rating out of 5
   const calculateAverageOverall = () => {
     const total = car!.reviews.reduce(
       (acc, review) => acc + (review.comfort + review.looks + review.reliability) / 3,
       0
     );
-    return total / car!.reviews.length;
+    return (total / car!.reviews.length) / 2; // Convert to 5-point scale
   };
 
   const averageOverall = calculateAverageOverall().toFixed(1);
@@ -78,18 +78,18 @@ const CarDetailsPage: React.FC = () => {
         <img src={placeholderImage} alt="No Image Available" style={{ width: '300px' }} />  // Use placeholder image
       )}
 
-      {/* Display average overall rating bar */}
+      {/* Display average overall rating as stars */}
       <h2>Average Overall Rating</h2>
-      <OverallRatingBar average={Number(averageOverall)} />
+      <ReviewStars label="Overall" value={Number(averageOverall)} />
 
       <h2>Reviews</h2>
       {car.reviews.length > 0 ? (
         <ul>
           {car.reviews.map((review) => (
             <li key={review.id} style={{ marginBottom: '20px' }}>
-              <ReviewStars label="Comfort" value={review.comfort} />
-              <ReviewStars label="Looks" value={review.looks} />
-              <ReviewStars label="Reliability" value={review.reliability} />
+              <ReviewStars label="Comfort" value={review.comfort / 2} /> {/* Convert to 5-point scale */}
+              <ReviewStars label="Looks" value={review.looks / 2} /> {/* Convert to 5-point scale */}
+              <ReviewStars label="Reliability" value={review.reliability / 2} /> {/* Convert to 5-point scale */}
             </li>
           ))}
         </ul>
@@ -100,49 +100,20 @@ const CarDetailsPage: React.FC = () => {
   );
 };
 
-// Component to render a color-coded overall rating bar
-interface OverallRatingBarProps {
-  average: number;
-}
-
-const OverallRatingBar: React.FC<OverallRatingBarProps> = ({ average }) => {
-  // Determine color based on average value
-  const getColor = (value: number) => {
-    if (value <= 3) return '#f44336'; // Red for 0-3
-    if (value <= 7) return '#ff9800'; // Yellow for 4-7
-    return '#4CAF50'; // Green for 8-10
-  };
-
-  return (
-    <div style={{ marginBottom: '20px' }}>
-      <div style={{ backgroundColor: '#e0e0e0', borderRadius: '5px', width: '100%', height: '30px', overflow: 'hidden' }}>
-        <div
-          style={{
-            width: `${(average / 10) * 100}%`,
-            height: '100%',
-            backgroundColor: getColor(average), // Use dynamic color
-            transition: 'width 0.5s ease', // Optional: smooth transition
-          }}
-        />
-      </div>
-      <span>Overall Rating: {average} / 10</span>
-    </div>
-  );
-};
-
-// Component to render star ratings for individual reviews
+// Component to render star ratings for individual reviews and overall rating
 interface ReviewStarsProps {
   label: string;
   value: number;
 }
 
 const ReviewStars: React.FC<ReviewStarsProps> = ({ label, value }) => {
-  const stars = Array.from({ length: 10 }, (_, i) => i < value ? '★' : '☆');
+  const stars = Array.from({ length: 5 }, (_, i) => i < Math.round(value) ? '★' : '☆');
 
   return (
     <div style={{ marginBottom: '10px' }}>
       <strong>{label}: </strong>
       <span style={{ color: '#FFD700', fontSize: '20px' }}>{stars.join(' ')}</span>
+      <span> ({value.toFixed(1)} / 5)</span>
     </div>
   );
 };

@@ -25,20 +25,32 @@ const CarCard: React.FC<CarCardProps> = ({ car }) => {
   const placeholderImage = 'https://via.placeholder.com/150?text=No+Image';
 
   // Calculate the average overall rating if reviews are available
-  const calculateAverageRating = (reviews: Review[] | undefined) => {
-    if (!reviews || reviews.length === 0) return 'No reviews';
+  const calculateAverageRating = (reviews: Review[] | undefined): number => {
+    if (!reviews || reviews.length === 0) return 0;
 
     const totalRatings = reviews.reduce(
       (acc, review) => acc + (review.comfort + review.looks + review.reliability) / 3,
       0
     );
     const averageRating = totalRatings / reviews.length;
-    return averageRating.toFixed(1); // Return average to one decimal place
+    return parseFloat(averageRating.toFixed(1)); // Return average to one decimal place
+  };
+
+  // Function to generate star icons based on the rating
+  const generateStars = (rating: number) => {
+    const stars = [];
+    for (let i = 1; i <= 5; i++) {
+      stars.push(i <= Math.round(rating) ? '★' : '☆'); // Filled star if within rating, else empty star
+    }
+    return stars.join(' ');
   };
 
   const handleClick = () => {
     navigate(`/cars/${car.id}`);  // Replace history.push with navigate
   };
+
+  // Get the average rating for display
+  const averageRating = calculateAverageRating(car.reviews);
 
   return (
     <div
@@ -59,8 +71,10 @@ const CarCard: React.FC<CarCardProps> = ({ car }) => {
       />
       <h3>{car.make} {car.model}</h3>
       <p>{car.year}</p>
-      {/* Display average overall review */}
-      <p>Average Rating: {calculateAverageRating(car.reviews)}</p>
+      {/* Display average overall review as stars */}
+      <p>
+        {averageRating > 0 ? generateStars(averageRating) : 'No reviews'}
+      </p>
     </div>
   );
 };
