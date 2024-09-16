@@ -22,21 +22,24 @@ interface Car {
 }
 
 const CarDetailsPage: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
+  const { carId } = useParams<{ carId: string }>();  // Use carId to match the route parameter
   const [car, setCar] = useState<Car | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchCar = async () => {
-      if (!id) {
-        console.error('No car ID found in URL.');
-        setError('Car ID is missing.');
-        return;
-      }
+    console.log('CarDetailsPage mounted');  // Debugging line
+    console.log('Car ID from URL (useParams):', carId);  // Log the car ID from the URL
 
-      console.log('Fetching car with id:', id);  // Debugging line
+    if (!carId) {
+      console.error('No car ID found in URL.');  // Debugging line
+      setError('Car ID is missing.');
+      return;
+    }
+
+    const fetchCar = async () => {
+      console.log('Fetching car with id:', carId);  // Debugging line
       try {
-        const response = await axios.get(`http://localhost:3000/cars/${id}`);
+        const response = await axios.get(`http://localhost:3000/cars/${carId}`);
         console.log('Car details fetched:', response.data);  // Debugging line
         setCar(response.data);
       } catch (error) {
@@ -46,7 +49,7 @@ const CarDetailsPage: React.FC = () => {
     };
 
     fetchCar();
-  }, [id]);
+  }, [carId]);
 
   if (error) return <p>{error}</p>;
   if (!car) return <p>Loading...</p>;
@@ -55,8 +58,11 @@ const CarDetailsPage: React.FC = () => {
     <div>
       <h1>{car.make} {car.model}</h1>
       <p>Year: {car.year}</p>
-      {/* Updated image path assuming backend serves from /uploads/cars */}
-      {car.picture && <img src={`http://localhost:3000/uploads/cars/${car.picture}`} alt={car.make} style={{ width: '300px' }} />}
+      {car.picture ? (
+        <img src={`http://localhost:3000/uploads/cars/${car.picture}`} alt={car.make} style={{ width: '300px' }} />
+      ) : (
+        <p>No image available</p>
+      )}
       <h2>Reviews</h2>
       <ul>
         {car.reviews.map((review) => (

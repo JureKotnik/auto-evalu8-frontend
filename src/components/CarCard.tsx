@@ -16,7 +16,7 @@ interface CarCardProps {
 const CarCard: React.FC<CarCardProps> = ({ car }) => {
   const navigate = useNavigate();  // Use useNavigate
   const placeholderImage = 'https://via.placeholder.com/150?text=No+Image';
-
+  console.log(`Navigating to car details page for car ID: ${car.id}`); 
   const handleClick = () => {
     navigate(`/cars/${car.id}`);  // Replace history.push with navigate
   };

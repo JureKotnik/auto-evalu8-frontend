@@ -1,22 +1,20 @@
 import React from 'react';
-import { Route, Navigate, RouteProps, useLocation } from 'react-router-dom';
-import { useAuth } from '../hooks/useAuth';
+import { Navigate } from 'react-router-dom';
+import { useAuth } from '../hooks/useAuth';  // Assume you have a useAuth hook for authentication status
 
 interface PrivateRouteProps {
-  element: React.ReactElement;
-  path: string;
-  // Add other RouteProps if needed
+  children: React.ReactNode;
 }
 
-const PrivateRoute: React.FC<PrivateRouteProps> = ({ element, path }) => {
-  const { isAuthenticated } = useAuth();
-  const location = useLocation();
+const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
+  const { isAuthenticated } = useAuth();  // Check if the user is authenticated
 
-  return isAuthenticated ? (
-    <Route path={path} element={element} />
-  ) : (
-    <Navigate to="/login" state={{ from: location }} replace />
-  );
+  if (!isAuthenticated) {
+    // Redirect to login if not authenticated
+    return <Navigate to="/login" />;
+  }
+
+  return <>{children}</>;  // Render the children components if authenticated
 };
 
 export default PrivateRoute;
