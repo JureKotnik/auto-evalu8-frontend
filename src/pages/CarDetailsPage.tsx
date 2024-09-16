@@ -18,32 +18,39 @@ interface Car {
   averageComfort: number;
   averageLooks: number;
   averageReliability: number;
-  reviews: Review[];
+  reviews: Review[]; // Ensure reviews are defined as an array
 }
 
 const CarDetailsPage: React.FC = () => {
-  const { carId } = useParams<{ carId: string }>();  // Use carId to match the route parameter
+  const { carId } = useParams<{ carId: string }>(); // Use carId to match the route parameter
   const [car, setCar] = useState<Car | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    console.log('CarDetailsPage mounted');  // Debugging line
-    console.log('Car ID from URL (useParams):', carId);  // Log the car ID from the URL
+    console.log('CarDetailsPage mounted'); // Debugging line
+    console.log('Car ID from URL (useParams):', carId); // Log the car ID from the URL
 
     if (!carId) {
-      console.error('No car ID found in URL.');  // Debugging line
+      console.error('No car ID found in URL.'); // Debugging line
       setError('Car ID is missing.');
       return;
     }
 
     const fetchCar = async () => {
-      console.log('Fetching car with id:', carId);  // Debugging line
+      console.log('Fetching car with id:', carId); // Debugging line
       try {
         const response = await axios.get(`http://localhost:3000/cars/${carId}`);
-        console.log('Car details fetched:', response.data);  // Debugging line
-        setCar(response.data);
+        console.log('Car details fetched:', response.data); // Debugging line
+        
+        // Initialize reviews to an empty array if they are undefined
+        const carData = {
+          ...response.data,
+          reviews: response.data.reviews || [], // Ensure reviews is always an array
+        };
+        
+        setCar(carData);
       } catch (error) {
-        console.error('Error fetching car details:', error);  // Debugging line
+        console.error('Error fetching car details:', error); // Debugging line
         setError('Failed to fetch car details');
       }
     };
@@ -59,11 +66,13 @@ const CarDetailsPage: React.FC = () => {
 
   // Calculate average overall rating out of 5
   const calculateAverageOverall = () => {
-    const total = car!.reviews.reduce(
+    if (!car || !car.reviews || car.reviews.length === 0) return 0; // Check if car and reviews are available
+
+    const total = car.reviews.reduce(
       (acc, review) => acc + (review.comfort + review.looks + review.reliability) / 3,
       0
     );
-    return (total / car!.reviews.length) / 2; // Convert to 5-point scale
+    return (total / car.reviews.length) / 2; // Convert to 5-point scale
   };
 
   const averageOverall = calculateAverageOverall().toFixed(1);

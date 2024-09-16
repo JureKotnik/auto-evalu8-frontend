@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import CarCard from '../components/CarCard';
+import Navbar from './Navbar';
+
 
 interface Car {
   id: number;
@@ -73,6 +75,8 @@ const HomePage: React.FC = () => {
 
   return (
     <div>
+      <Navbar /> {/* Include the Navbar component */}
+
       <div>
         <input
           type="text"
