@@ -1,0 +1,114 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+  }
+  
+  .login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f8f9fa;
+  }
+  
+  .login-left, .login-right {
+    width: 40%;
+    padding: 50px;
+  }
+  
+  .login-left {
+    background-color: white;
+    border-radius: 8px 0 0 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .login-left h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+  }
+  
+  .login-left input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+  }
+  
+  .remember-forgot {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .remember-forgot label {
+    display: flex;
+    align-items: center;
+  }
+  
+  .remember-forgot a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .sign-in-button {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(to right, #ff416c, #ff4b2b);
+    border: none;
+    color: white;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .sign-in-button:hover {
+    background: linear-gradient(to right, #ff4b2b, #ff416c);
+  }
+  
+  .login-right {
+    background: linear-gradient(to right, #ff416c, #ff4b2b);
+    color: white;
+    text-align: center;
+    border-radius: 0 8px 8px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .login-right h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .login-right p {
+    margin-bottom: 20px;
+  }
+  
+  .sign-up-button {
+    padding: 12px 30px;
+    background-color: white;
+    color: #ff416c;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .sign-up-button:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .error {
+    color: red;
+    margin-top: 10px;
+  }
+  

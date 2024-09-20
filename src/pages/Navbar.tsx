@@ -1,4 +1,3 @@
-// src/components/Navbar.tsx
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -9,17 +8,17 @@ const Navbar: React.FC = () => {
 
   useEffect(() => {
     // Check if a JWT token is present in local storage or cookies to determine if the user is logged in
-    const token = localStorage.getItem('jwt');
-    setIsAuthenticated(!!token);
+    const token = localStorage.getItem('token'); // Update this key to match the login flow
+    setIsAuthenticated(!!token); // Set authentication status based on token presence
   }, []);
-
+  
   const handleLogout = async () => {
     try {
-      // Make a request to the backend to sign out (optional)
-      await axios.post('http://localhost:3000/users/signout');
+      // Make a request to the backend to sign out, sending credentials (cookies)
+      await axios.post('http://localhost:3000/auth/signout', {}, { withCredentials: true });
       
-      // Remove the JWT token from local storage
-      localStorage.removeItem('jwt');
+      // Remove the JWT token from local storage (if applicable)
+      localStorage.removeItem('token');
       setIsAuthenticated(false);
       navigate('/'); // Redirect to home page
     } catch (error) {
@@ -47,3 +46,4 @@ const Navbar: React.FC = () => {
 };
 
 export default Navbar;
+
