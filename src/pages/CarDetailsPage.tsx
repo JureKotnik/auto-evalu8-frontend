@@ -1,8 +1,7 @@
-// CarDetailsPage.tsx
-
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import '../assets/css/CarDetailsPage.css';
 
 interface Review {
   id: number;
@@ -27,6 +26,7 @@ const CarDetailsPage: React.FC = () => {
   const { carId } = useParams<{ carId: string }>();  // Capture carId from the URL
   const [car, setCar] = useState<Car | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate(); // To allow closing the modal and navigating away
 
   // Debugging: Log carId to ensure it’s being passed correctly
   useEffect(() => {
@@ -40,20 +40,23 @@ const CarDetailsPage: React.FC = () => {
     const fetchCar = async () => {
       try {
         const response = await axios.get(`http://localhost:3000/cars/${carId}`);
-        console.log('Car details fetched:', response.data);  // Debugging line
         const carData = {
           ...response.data,
           reviews: response.data.reviews || [], // Ensure reviews are always an array
         };
         setCar(carData);
       } catch (error) {
-        console.error('Error fetching car details:', error);  // Debugging line
         setError('Failed to fetch car details');
       }
     };
 
     fetchCar();
-  }, [carId]);  // carId is the dependency to trigger the effect
+  }, [carId]);
+
+  // Handle closing the modal
+  const handleClose = () => {
+    navigate('/'); // Navigate back to home or any other page
+  };
 
   // Handle loading and error states
   if (error) return <p>{error}</p>;
@@ -75,31 +78,34 @@ const CarDetailsPage: React.FC = () => {
   const averageOverall = calculateAverageOverall().toFixed(1);
 
   return (
-    <div style={{ maxWidth: '600px', margin: '0 auto' }}>
-      <h1>{car.make} {car.model} ({car.year})</h1>
-      {car.picture ? (
-        <img src={`http://localhost:3000/uploads/cars/${car.picture}`} alt={car.make} style={{ width: '100%', borderRadius: '8px' }} />
-      ) : (
-        <img src={placeholderImage} alt="No Image Available" style={{ width: '100%', borderRadius: '8px' }} />
-      )}
+    <div className="modal">
+      <div className="modal-content">
+        <button className="close-button" onClick={handleClose}>×</button>
+        <h1>{car.make} {car.model} ({car.year})</h1>
+        {car.picture ? (
+          <img src={`http://localhost:3000/uploads/cars/${car.picture}`} alt={car.make} className="car-image" />
+        ) : (
+          <img src={placeholderImage} alt="No Image Available" className="car-image" />
+        )}
 
-      <h2>Average Overall Rating</h2>
-      <ReviewStars label="Overall" value={Number(averageOverall)} />
+        <h2>Average Overall Rating</h2>
+        <ReviewStars label="Overall" value={Number(averageOverall)} />
 
-      <h2>Reviews</h2>
-      {car.reviews.length > 0 ? (
-        <ul style={{ listStyleType: 'none', paddingLeft: 0 }}>
-          {car.reviews.map((review) => (
-            <li key={review.id} style={{ marginBottom: '20px', borderBottom: '1px solid #ddd', paddingBottom: '10px' }}>
-              <ReviewStars label="Comfort" value={review.comfort / 2} /> {/* Convert to 5-point scale */}
-              <ReviewStars label="Looks" value={review.looks / 2} /> {/* Convert to 5-point scale */}
-              <ReviewStars label="Reliability" value={review.reliability / 2} /> {/* Convert to 5-point scale */}
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>No reviews available.</p>
-      )}
+        <h2>Reviews</h2>
+        {car.reviews.length > 0 ? (
+          <ul className="reviews-list">
+            {car.reviews.map((review) => (
+              <li key={review.id} className="review-item">
+                <ReviewStars label="Comfort" value={review.comfort / 2} /> {/* Convert to 5-point scale */}
+                <ReviewStars label="Looks" value={review.looks / 2} /> {/* Convert to 5-point scale */}
+                <ReviewStars label="Reliability" value={review.reliability / 2} /> {/* Convert to 5-point scale */}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>No reviews available.</p>
+        )}
+      </div>
     </div>
   );
 };
@@ -114,12 +120,13 @@ const ReviewStars: React.FC<ReviewStarsProps> = ({ label, value }) => {
   const stars = Array.from({ length: 5 }, (_, i) => i < Math.round(value) ? '★' : '☆');
 
   return (
-    <div style={{ marginBottom: '10px' }}>
+    <div className="review-stars">
       <strong>{label}: </strong>
-      <span style={{ color: '#FFD700', fontSize: '20px' }}>{stars.join(' ')}</span>
+      <span className="stars">{stars.join(' ')}</span>
       <span> ({value.toFixed(1)} / 5)</span>
     </div>
   );
 };
 
 export default CarDetailsPage;
+

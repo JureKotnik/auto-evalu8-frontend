@@ -28,7 +28,7 @@ const HomePage: React.FC = () => {
       setLoading(true);
       try {
         const response = await axios.get('http://localhost:3000/cars', {
-          params: { limit: 10 },  // Fetch recent 10 cars
+          params: { limit: 20 },  // Fetch recent 10 cars
         });
         setCars(response.data);  // Set the fetched cars into state
         setError(null);  // Clear any errors
