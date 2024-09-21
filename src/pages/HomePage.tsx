@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import CarCard from '../components/CarCard';
 import Navbar from './Navbar';
-
+import '../assets/css/HomePage.css';
 
 interface Car {
   id: number;
@@ -17,86 +17,87 @@ interface Car {
 }
 
 const HomePage: React.FC = () => {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [cars, setCars] = useState<Car[]>([]);
-  const [recentCars, setRecentCars] = useState<Car[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');  // Query state for search input
+  const [cars, setCars] = useState<Car[]>([]);  // State to hold fetched cars
+  const [loading, setLoading] = useState<boolean>(false);  // Loading state
+  const [error, setError] = useState<string | null>(null);  // Error state
 
+  // Fetch the initial 10 cars when the component loads
   useEffect(() => {
-    // Fetch the most recent 5-10 cars initially
     const fetchRecentCars = async () => {
       setLoading(true);
       try {
         const response = await axios.get('http://localhost:3000/cars', {
-          params: { limit: 10 }, // Adjust the limit as needed
+          params: { limit: 10 },  // Fetch recent 10 cars
         });
-        setRecentCars(response.data);
-        setError(null);
+        setCars(response.data);  // Set the fetched cars into state
+        setError(null);  // Clear any errors
       } catch (error) {
-        setError('Failed to fetch recent cars');
+        setError('Failed to fetch recent cars');  // Set error if fetching fails
       } finally {
-        setLoading(false);
+        setLoading(false);  // Stop loading
       }
     };
 
     fetchRecentCars();
-  }, []);
+  }, []);  // Empty dependency array to run this effect on component mount
 
+  // Handle the search functionality
   const handleSearch = async () => {
-    if (!searchQuery.trim()) {
-      // If no search query, reset to show recent cars
-      setCars(recentCars);
-      return;
-    }
+    if (!searchQuery.trim()) return;  // Prevent search if input is empty
 
-    setLoading(true);
+    setLoading(true);  // Start loading
     try {
       const response = await axios.get('http://localhost:3000/cars', {
         params: {
-          search: searchQuery, // Backend should handle searching by make or model
+          search: searchQuery,  // Pass the search query to backend
         },
       });
-      setCars(response.data);
-      setError(null);
+      setCars(response.data);  // Update the state with search results
+      setError(null);  // Clear any errors
     } catch (error) {
-      setError('Failed to fetch cars');
+      setError('Failed to fetch cars');  // Set error if search fails
     } finally {
-      setLoading(false);
+      setLoading(false);  // Stop loading
     }
   };
 
-  // Trigger search whenever the user types and presses Enter
+  // Trigger search when pressing "Enter" key
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      handleSearch();
+      handleSearch();  // Trigger search on Enter key press
     }
   };
 
   return (
     <div>
-      <Navbar /> {/* Include the Navbar component */}
+      <Navbar />  {/* Include the Navbar */}
 
-      <div>
-        <input
-          type="text"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          onKeyDown={handleKeyDown} // Search on Enter key press
-          placeholder="Search for cars by make or model"
-          style={{ marginRight: '10px' }}
-        />
-        <button onClick={handleSearch}>Search</button>
-      </div>
+      <div className="home-container">
+        <div className="search-container">
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyDown={handleKeyDown}  // Search on Enter key press
+            placeholder="Search for cars by make or model"
+            className="search-input"
+          />
+          <button onClick={handleSearch} className="search-button">Search</button>
+        </div>
 
-      {loading && <p>Loading...</p>}
-      {error && <p>{error}</p>}
-      
-      {/* Show search results if there is a search query, otherwise show recent cars */}
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', marginTop: '20px' }}>
-        {searchQuery.trim()
-          ? cars.map((car) => <CarCard key={car.id} car={car} />)
-          : recentCars.map((car) => <CarCard key={car.id} car={car} />)}
+        {loading && <p>Loading cars...</p>}
+        {error && <p>{error}</p>}
+
+        <div className="car-grid">
+          {cars.length > 0 ? (
+            cars.map((car) => (
+              <CarCard key={car.id} car={car} />  // Render each car card
+            ))
+          ) : (
+            !loading && <p>No cars available</p>  // Fallback message when no cars
+          )}
+        </div>
       </div>
     </div>
   );

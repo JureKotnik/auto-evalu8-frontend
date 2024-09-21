@@ -10,14 +10,12 @@ const AppRoutes: React.FC = () => {
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/auth" element={<AuthPage />} />
-      <Route
-        path="/cars/:id"
-        element={
-          <PrivateRoute>
-            <CarDetailsPage />
-          </PrivateRoute>
-        }
-      />
+      
+      {/* Allow viewing CarDetailsPage without authentication */}
+      <Route path="/cars/:carId" element={<CarDetailsPage />} />
+
+      {/* Protect routes that require authentication */}
+      <Route path="/private" element={<PrivateRoute>/* Private Component */</PrivateRoute>} />
     </Routes>
   );
 };

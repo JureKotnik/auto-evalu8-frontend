@@ -1,0 +1,58 @@
+.home-container {
+    padding: 80px 20px 20px; /* Padding for the content to adjust for the fixed navbar */
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .search-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .search-input {
+    padding: 12px 15px;
+    font-size: 1rem;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    flex: 1;
+    max-width: 400px;
+    margin-right: 10px;
+  }
+  
+  .search-button {
+    padding: 12px 20px;
+    background-color: #ff4b2b;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+  }
+  
+  .search-button:hover {
+    background-color: #ff416c;
+  }
+  
+  /* Responsive grid for car cards with different horizontal and vertical gaps */
+  .car-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-column-gap: 20px; /* Horizontal gap (left to right) */
+    grid-row-gap: 30px;    /* Vertical gap (up to down) */
+    margin-top: 20px;
+  }
+  
+  @media (max-width: 768px) {
+    .search-container {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .search-input {
+      margin-bottom: 10px;
+      margin-right: 0;
+    }
+  }
+  
