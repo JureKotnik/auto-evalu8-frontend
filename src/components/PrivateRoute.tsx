@@ -10,8 +10,8 @@ const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
   const { isAuthenticated } = useAuth();  // Check if the user is authenticated
 
   if (!isAuthenticated) {
-    // Redirect to login if not authenticated
-    return <Navigate to="/login" />;
+    // Redirect to auth page with mode=login if not authenticated
+    return <Navigate to="/auth?mode=login" />;
   }
 
   return <>{children}</>;  // Render the children components if authenticated

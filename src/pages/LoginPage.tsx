@@ -21,7 +21,7 @@ const LoginPage: React.FC = () => {
   };
 
   const goToSignUp = () => {
-    navigate('/register');  // Assuming '/register' is the route for sign up
+    navigate('/register');
   };
 
   return (
