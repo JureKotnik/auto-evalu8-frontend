@@ -83,7 +83,7 @@ const CarDetailsPage: React.FC = () => {
         <button className="close-button" onClick={handleClose}>×</button>
         <h1>{car.make} {car.model} ({car.year})</h1>
         {car.picture ? (
-          <img src={`http://localhost:3000/uploads/cars/${car.picture}`} alt={car.make} className="car-image" />
+          <img src={`http://localhost:3000/uploads/${car.picture}`} alt={car.make} className="car-image" />
         ) : (
           <img src={placeholderImage} alt="No Image Available" className="car-image" />
         )}

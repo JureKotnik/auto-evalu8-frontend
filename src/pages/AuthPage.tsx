@@ -27,12 +27,16 @@ const AuthPage: React.FC = () => {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
-
+  
     try {
-      const response = await axios.post('http://localhost:3000/auth/login', { email, password });
-      localStorage.setItem('token', response.data.token);
-      navigate('/');
-    } catch (error) {
+      const response = await axios.post('http://localhost:3000/auth/login', { email, password }, {
+        withCredentials: true, // Important for cookies
+      });
+      console.log('Login response:', response.data); // Should include token and user
+      localStorage.setItem('token', response.data.token); // Store the token if needed
+      navigate('/'); // Redirect after successful login
+    } catch (error: any) {
+      console.error('Login error:', error.response?.data || error.message);
       setError('Login failed. Please check your credentials.');
     }
   };

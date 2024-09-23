@@ -65,7 +65,7 @@ const CarCard: React.FC<CarCardProps> = ({ car }) => {
       }}
     >
       <img
-        src={car.picture ? `http://localhost:3000/uploads/cars/${car.picture}` : placeholderImage}
+        src={car.picture ? `http://localhost:3000/uploads/${car.picture}` : placeholderImage}
         alt={car.make}
         style={{ width: '100%', borderRadius: '5px' }}
       />

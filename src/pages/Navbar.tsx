@@ -32,8 +32,11 @@ const Navbar: React.FC = () => {
       <div className="navbar-container">
         <h1 className="navbar-logo" onClick={() => navigate('/')}>AutoEvalu8</h1>
         <div className="navbar-links">
-          {isAuthenticated ? (
-            <button className="navbar-button" onClick={handleLogout}>Logout</button>
+        {isAuthenticated ? (
+            <>
+              <button className="navbar-button" onClick={() => navigate('/add-car')}>Add Car</button>
+              <button className="navbar-button" onClick={handleLogout}>Logout</button>
+            </>
           ) : (
             <>
               <button className="navbar-button" onClick={() => navigate('/auth?mode=login')}>Login</button>
