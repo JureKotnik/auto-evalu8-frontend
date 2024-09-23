@@ -1,93 +1,97 @@
 /* Full-screen modal background */
 .modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7); /* Dark transparent background */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-  }
-  
-  /* Modal content box */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Modal content box */
+.modal-content {
+  display: flex;
+  flex-direction: row; /* Align children in a row */
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 1000px;
+  position: relative;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Car details section */
+.car-details {
+  flex: 2; /* Take more space */
+  margin-right: 20px; /* Space between car details and comments */
+}
+
+/* Car image styling */
+.car-image {
+  width: 100%; /* Responsive width */
+  height: auto; /* Maintain aspect ratio */
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+/* Comments section */
+.comments-section {
+  flex: 1; /* Take less space */
+  border-left: 1px solid #ddd; /* Divider */
+  padding-left: 20px; /* Space inside comments section */
+}
+
+/* Comments list styling */
+.comments-list {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 20px; /* Space below comments */
+}
+
+.comment-item {
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background: #f9f9f9; /* Light background for comments */
+}
+
+/* Stars rating styling */
+.stars {
+  color: #FFD700; /* Gold color for stars */
+  font-size: 22px; /* Adjust size for visibility */
+}
+
+/* Close button in the top-right corner */
+.close-button {
+  position: absolute;
+  top: 15px; /* Adjust as needed */
+  right: 15px; /* Adjust as needed */
+  background: none;
+  border: none;
+  font-size: 30px;
+  cursor: pointer;
+  color: #333;
+  z-index: 1001; /* Ensure it's above the modal content */
+}
+
+/* Responsive for smaller screens */
+@media (max-width: 768px) {
   .modal-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    width: 80%;
-    max-width: 600px;
-    position: relative;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-  }
-  
-  /* Close button in the top-right corner */
-  .close-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: none;
-    border: none;
-    font-size: 30px;
-    cursor: pointer;
-    color: #333;
-  }
-  
-  /* Car image styling */
-  .car-image {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-    margin-bottom: 20px;
-  }
-  
-  /* Reviews list styling */
-  .reviews-list {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .review-item {
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  /* Stars rating styling */
-  .review-stars {
-    font-size: 18px;
-  }
-  
-  .stars {
-    color: #FFD700; /* Gold color for stars */
-    font-size: 22px;
-  }
-  
-  /* Responsive for smaller screens */
-  @media (max-width: 768px) {
-    .modal-content {
-      width: 95%;
-    }
-  }
-  .rating-container {
-    display: flex;
-    flex-direction: column; /* Stack ratings vertically */
-    gap: 5px; /* Space between each rating */
-  }
-  
-  .rating-container p {
-    display: flex;
-    justify-content: space-between; /* Space between label and stars */
-    width: 100%; /* Full width to allow proper alignment */
-  }
-  
-  .review-stars {
-    display: flex;
-    align-items: center; /* Align stars vertically in the center */
+    flex-direction: column; /* Stack vertically on small screens */
+    width: 95%;
   }
 
-  h2 {
-    margin-bottom: 20px; /* Adjust the value as needed for more space */
+  .comments-section {
+    width: 100%; /* Full width on small screens */
+    border-left: none; /* Remove divider */
+    padding-left: 0; /* Remove padding */
   }
+}
+
+/* Other existing styles... */
