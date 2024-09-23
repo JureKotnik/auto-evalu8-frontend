@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import '../assets/css/CarCard.css';
 
 interface Review {
   comfort: number;
@@ -12,11 +13,11 @@ export interface Car {
   make: string;
   model: string;
   year: number;
-  picture?: string; // Use existing picture property
-  averageComfort?: number; // Average comfort rating
-  averageLooks?: number; // Average looks rating
-  averageReliability?: number; // Average reliability rating
-  reviews?: Review[]; // Added reviews field if needed
+  picture?: string;
+  averageComfort?: number; 
+  averageLooks?: number; 
+  averageReliability?: number; 
+  reviews?: Review[]; 
 }
 
 interface CarCardProps {
@@ -43,6 +44,17 @@ const CarCard: React.FC<CarCardProps> = ({ car }) => {
 
   const averageRating = calculateAverageRating();
 
+  // Function to generate star icons based on the rating
+  const generateStars = (rating: number) => {
+    const stars = [];
+    for (let i = 1; i <= 5; i++) {
+      stars.push(
+        <span key={i} className={i <= Math.round(rating) ? 'star filled' : 'star'}>★</span>
+      ); // Filled star if within rating, else empty star
+    }
+    return stars;
+  };
+
   const handleClick = () => {
     navigate(`/cars/${car.id}`);
   };
@@ -66,9 +78,9 @@ const CarCard: React.FC<CarCardProps> = ({ car }) => {
       />
       <h3>{car.make} {car.model}</h3>
       <p>{car.year}</p>
-      {/* Display average rating or indicate no reviews */}
+      {/* Display average rating as stars or indicate no reviews */}
       <p>
-        {averageRating > 0 ? `Average Rating: ${averageRating} / 5` : 'No reviews'}
+        {averageRating > 0 ? generateStars(averageRating) : 'No reviews'}
       </p>
     </div>
   );

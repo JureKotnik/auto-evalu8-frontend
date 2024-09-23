@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import '../assets/css/AddCars.css'; // Ensure you have your styles
+import Navbar from './Navbar';
 
 const AddCar: React.FC = () => {
   const [make, setMake] = useState('');
@@ -56,6 +57,7 @@ const AddCar: React.FC = () => {
 
   return (
     <div className="add-car-container"> {/* New container for centering */}
+        <Navbar />
       <div className="add-car-form">
         <h2>Add Car</h2>
         <form onSubmit={handleSubmit}>
