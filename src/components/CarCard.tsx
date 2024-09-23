@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';  // Use useNavigate instead of useHistory
+import { useNavigate } from 'react-router-dom';
 
 interface Review {
   comfort: number;
@@ -7,13 +7,16 @@ interface Review {
   reliability: number;
 }
 
-interface Car {
+export interface Car {
   id: number;
   make: string;
   model: string;
   year: number;
-  picture?: string;
-  reviews?: Review[];  // Added reviews field
+  picture?: string; // Use existing picture property
+  averageComfort?: number; // Average comfort rating
+  averageLooks?: number; // Average looks rating
+  averageReliability?: number; // Average reliability rating
+  reviews?: Review[]; // Added reviews field if needed
 }
 
 interface CarCardProps {
@@ -21,36 +24,28 @@ interface CarCardProps {
 }
 
 const CarCard: React.FC<CarCardProps> = ({ car }) => {
-  const navigate = useNavigate();  // Use useNavigate
+  const navigate = useNavigate();
   const placeholderImage = 'https://via.placeholder.com/150?text=No+Image';
 
-  // Calculate the average overall rating if reviews are available
-  const calculateAverageRating = (reviews: Review[] | undefined): number => {
-    if (!reviews || reviews.length === 0) return 0;
-
-    const totalRatings = reviews.reduce(
-      (acc, review) => acc + (review.comfort + review.looks + review.reliability) / 3,
-      0
-    );
-    const averageRating = totalRatings / reviews.length;
-    return parseFloat(averageRating.toFixed(1)); // Return average to one decimal place
+  // Calculate the average overall rating if averages are available
+  const calculateAverageRating = (): number => {
+    const ratings = [
+      car.averageComfort,
+      car.averageLooks,
+      car.averageReliability,
+    ].filter(Boolean) as number[];
+    
+    if (ratings.length === 0) return 0;
+    
+    const total = ratings.reduce((acc, rating) => acc + rating, 0);
+    return parseFloat((total / ratings.length).toFixed(1)); // Return average to one decimal place
   };
 
-  // Function to generate star icons based on the rating
-  const generateStars = (rating: number) => {
-    const stars = [];
-    for (let i = 1; i <= 5; i++) {
-      stars.push(i <= Math.round(rating) ? '★' : '☆'); // Filled star if within rating, else empty star
-    }
-    return stars.join(' ');
-  };
+  const averageRating = calculateAverageRating();
 
   const handleClick = () => {
-    navigate(`/cars/${car.id}`);  // Replace history.push with navigate
+    navigate(`/cars/${car.id}`);
   };
-
-  // Get the average rating for display
-  const averageRating = calculateAverageRating(car.reviews);
 
   return (
     <div
@@ -71,13 +66,14 @@ const CarCard: React.FC<CarCardProps> = ({ car }) => {
       />
       <h3>{car.make} {car.model}</h3>
       <p>{car.year}</p>
-      {/* Display average overall review as stars */}
+      {/* Display average rating or indicate no reviews */}
       <p>
-        {averageRating > 0 ? generateStars(averageRating) : 'No reviews'}
+        {averageRating > 0 ? `Average Rating: ${averageRating} / 5` : 'No reviews'}
       </p>
     </div>
   );
 };
 
 export default CarCard;
+
 

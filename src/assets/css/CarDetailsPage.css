@@ -71,4 +71,23 @@
       width: 95%;
     }
   }
+  .rating-container {
+    display: flex;
+    flex-direction: column; /* Stack ratings vertically */
+    gap: 5px; /* Space between each rating */
+  }
   
+  .rating-container p {
+    display: flex;
+    justify-content: space-between; /* Space between label and stars */
+    width: 100%; /* Full width to allow proper alignment */
+  }
+  
+  .review-stars {
+    display: flex;
+    align-items: center; /* Align stars vertically in the center */
+  }
+
+  h2 {
+    margin-bottom: 20px; /* Adjust the value as needed for more space */
+  }

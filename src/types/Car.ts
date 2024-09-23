@@ -4,4 +4,7 @@ export interface Car {
     model: string;
     year: number;
     pictureUrl?: string;
+    averageComfort?: number;
+    averageLooks?: number;
+    averageReliability?: number;
   }
