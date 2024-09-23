@@ -1,0 +1,64 @@
+.add-car-container {
+    display: flex; /* Use flexbox for centering */
+    align-items: center; /* Center items vertically */
+    justify-content: center; /* Center items horizontally */
+    height: 100vh; /* Full height of the viewport */
+  }
+  
+  .add-car-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 400px; /* Set a maximum width for the form */
+    padding: 20px;
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Shadow for a raised effect */
+    background-color: #fff; /* White background for contrast */
+  }
+  
+  .add-car-form h2 {
+    margin-bottom: 20px; /* Space below the title */
+  }
+  
+  .add-car-form div {
+    margin-bottom: 15px; /* Space between input fields */
+    width: 100%; /* Ensure inputs take full width */
+  }
+  
+  .add-car-form label {
+    display: block; /* Make labels block elements */
+    margin-bottom: 5px; /* Space below labels */
+  }
+  
+  .add-car-form input {
+    width: 100%; /* Full width inputs */
+    padding: 10px; /* Padding for input fields */
+    border: 1px solid #ddd; /* Light border */
+    border-radius: 4px; /* Rounded corners for inputs */
+  }
+  
+  .add-car-form button {
+    padding: 10px 15px; /* Padding for button */
+    border: none; /* Remove border */
+    border-radius: 4px; /* Rounded corners for button */
+    background-color: #ff4b2b; /* Button color */
+    color: white; /* White text on button */
+    cursor: pointer; /* Pointer on hover */
+    transition: background-color 0.3s; /* Smooth transition for hover effect */
+  }
+  
+  .add-car-form button:hover {
+    background-color: #e03b2a; /* Darker shade on hover */
+  }
+  
+  .image-preview {
+    margin-top: 15px;
+    text-align: center; /* Center the preview */
+  }
+  
+  .image-preview img {
+    max-width: 100%; /* Make sure the image doesn't exceed the form's width */
+    border-radius: 8px; /* Rounded corners for the preview */
+  }
+  

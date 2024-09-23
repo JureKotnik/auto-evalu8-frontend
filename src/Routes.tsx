@@ -6,6 +6,7 @@ import PrivateRoute from './components/PrivateRoute';
 import AuthPage from './pages/AuthPage';
 import AddCar from './pages/AddCar';
 
+
 const AppRoutes: React.FC = () => {
   return (
     <Routes>

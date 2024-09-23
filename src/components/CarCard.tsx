@@ -60,7 +60,7 @@ const CarCard: React.FC<CarCardProps> = ({ car }) => {
         borderRadius: '5px',
         padding: '10px',
         cursor: 'pointer',
-        width: '150px',
+        width: '250px',
         textAlign: 'center',
       }}
     >
