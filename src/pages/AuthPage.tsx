@@ -35,6 +35,7 @@ const AuthPage: React.FC = () => {
       console.log('Login response:', response.data); // Should include token and user
       localStorage.setItem('token', response.data.token); // Store the token if needed
       localStorage.setItem('userId', response.data.user.id);
+      localStorage.setItem('username', response.data.user.username);
       navigate('/'); // Redirect after successful login
     } catch (error: any) {
       console.error('Login error:', error.response?.data || error.message);

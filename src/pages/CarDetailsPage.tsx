@@ -72,18 +72,28 @@ const CarDetailsPage: React.FC = () => {
   const handleCommentSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newComment) return;
-
+  
+    const userId = localStorage.getItem('userId'); // Get user ID from local storage
+  
     try {
       const response = await axios.post(`http://localhost:3000/comments/${carId}`, {
         content: newComment,
+        userId, // Include userId in the comment submission
       }, { withCredentials: true });
-
-      setComments((prevComments) => [...prevComments, response.data]);
+  
+      // Append the user information to the comment
+      const newCommentData = {
+        ...response.data,
+        user: { id: userId, username: localStorage.getItem('username') }, // Set username here if stored
+      };
+  
+      setComments((prevComments) => [...prevComments, newCommentData]);
       setNewComment('');
     } catch (error) {
       console.error('Failed to add comment', error);
     }
   };
+  
 
   const openReviewModal = () => {
     setShowReviewModal(true);
