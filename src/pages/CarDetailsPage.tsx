@@ -59,7 +59,14 @@ const CarDetailsPage: React.FC = () => {
   const fetchComments = async () => {
     try {
       const response = await axios.get(`http://localhost:3000/comments/${carId}`);
-      setComments(response.data);
+      const enrichedComments = response.data.map((comment: Comment) => ({
+        ...comment,
+        user: {
+          id: comment.user?.id || '',
+          username: comment.user?.username || localStorage.getItem('username') || 'Anonymous', // Get username from local storage
+        },
+      }));
+      setComments(enrichedComments);
     } catch (error) {
       console.error('Failed to fetch comments', error);
     }
@@ -72,28 +79,26 @@ const CarDetailsPage: React.FC = () => {
   const handleCommentSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newComment) return;
-  
+
     const userId = localStorage.getItem('userId'); // Get user ID from local storage
-  
+
     try {
       const response = await axios.post(`http://localhost:3000/comments/${carId}`, {
         content: newComment,
         userId, // Include userId in the comment submission
       }, { withCredentials: true });
-  
-      // Append the user information to the comment
+
       const newCommentData = {
         ...response.data,
-        user: { id: userId, username: localStorage.getItem('username') }, // Set username here if stored
+        user: { id: userId, username: localStorage.getItem('username') || 'Anonymous' },
       };
-  
+
       setComments((prevComments) => [...prevComments, newCommentData]);
       setNewComment('');
     } catch (error) {
       console.error('Failed to add comment', error);
     }
   };
-  
 
   const openReviewModal = () => {
     setShowReviewModal(true);
