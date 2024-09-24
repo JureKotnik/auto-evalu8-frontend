@@ -47,27 +47,39 @@ const AuthPage: React.FC = () => {
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
-
+  
+    // Log the current values to ensure they are set correctly
+    console.log('Password:', password);
+    console.log('Confirm Password:', confirmPassword);
+  
     if (password !== confirmPassword) {
       setError('Passwords do not match.');
       return;
     }
-
+  
     try {
       const response = await axios.post('http://localhost:3000/auth/register', {
         username,
         email,
         password,
+        confirm_password: confirmPassword, // Ensure this is the correct key
       });
+  
       if (response.status === 201) {
         alert('Registration successful!');
-        navigate('/login');
+        navigate('/auth?mode=login');
       }
-    } catch (error) {
-      setError('Registration failed');
+    } catch (error: any) {
+      // Log the error for debugging
+      console.error('Registration error:', error.response?.data || error.message);
+      if (error.response && error.response.data && error.response.data.message) {
+        setError('Registration failed: ' + error.response.data.message.join(', '));
+      } else {
+        setError('Registration failed: Unknown error');
+      }
     }
   };
-
+  
   return (
     <div className={`auth-container ${isLogin ? 'login-mode' : 'register-mode'}`}>
       <div className="auth-panel">
