@@ -106,7 +106,7 @@
 .comment-button {
   align-self: flex-start;
   margin-top: 5px;
-  background-color: #007BFF; /* Change color as needed */
+  background: linear-gradient(to right, #ff416c, #ff4b2b);/* Change color as needed */
   color: white;
   border: none;
   border-radius: 5px;
@@ -116,7 +116,7 @@
 }
 
 .comment-button:hover {
-  background-color: #0056b3; /* Darker shade on hover */
+  background: linear-gradient(to right, #ff4b2b, #ff416c);
 }
 
 /* Responsive styles */
@@ -160,7 +160,7 @@
 }
 
 .add-review-button {
-  background-color: #007BFF; /* Bootstrap primary color */
+  background: linear-gradient(to right, #ff416c, #ff4b2b);/* Bootstrap primary color */
   color: white;
   border: none;
   padding: 10px 15px;
@@ -169,7 +169,7 @@
 }
 
 .add-review-button:hover {
-  background-color: #0056b3; /* Darker blue on hover */
+  background: linear-gradient(to right, #ff4b2b, #ff416c);
 }
 
 /* Star rating styles */
