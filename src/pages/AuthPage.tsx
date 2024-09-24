@@ -115,7 +115,7 @@ const AuthPage: React.FC = () => {
 
         {isLogin ? (
           <div className="auth-right">
-            <h2>Welcome to Login</h2>
+            <h2>Welcome to AutoEvalu8</h2>
             <p>Don't have an account?</p>
             <button className="auth-button" onClick={() => setIsLogin(false)}>Sign Up</button>
           </div>

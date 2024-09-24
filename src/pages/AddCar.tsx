@@ -57,7 +57,7 @@ const AddCar: React.FC = () => {
 
   return (
     <div className="add-car-container"> {/* New container for centering */}
-        <Navbar />
+      <Navbar />
       <div className="add-car-form">
         <h2>Add Car</h2>
         <form onSubmit={handleSubmit}>
@@ -80,7 +80,10 @@ const AddCar: React.FC = () => {
           </div>
           <div>
             <label>Picture:</label>
-            <input type="file" accept="image/*" onChange={handlePictureChange} />
+            <label className="custom-file-upload">
+              <input type="file" accept="image/*" onChange={handlePictureChange} />
+              Choose File
+            </label>
           </div>
           {picturePreview && (
             <div className="image-preview">
@@ -96,3 +99,4 @@ const AddCar: React.FC = () => {
 };
 
 export default AddCar;
+

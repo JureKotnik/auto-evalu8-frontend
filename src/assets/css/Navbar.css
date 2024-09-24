@@ -7,11 +7,13 @@
   
   body {
     font-family: 'Arial', sans-serif;
+    background-color: #333333;
+    color: #B2B2B2;
   }
   
   .navbar {
-    background-color: #fff;
-    border-bottom: 1px solid #ddd;
+    background-color: #333333;
+    border-bottom: 1px solid #4B4B4B;
     padding: 10px 20px;
     width: 100%;
     position: fixed;
@@ -29,13 +31,14 @@
   
   .navbar-logo {
     font-size: 1.5rem;
-    color: #ff4b2b;
+    color: #BB86FC;
     cursor: pointer;
     transition: color 0.3s;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   }
   
   .navbar-logo:hover {
-    color: #ff416c;
+    color: #3700B3;
   }
   
   .navbar-links {
@@ -47,27 +50,27 @@
   .navbar-button {
     padding: 10px 20px;
     background-color: transparent;
-    border: 2px solid #ff4b2b;
+    border: 2px solid #BB86FC;
     border-radius: 5px;
-    color: #ff4b2b;
+    color: #BB86FC;
     cursor: pointer;
     font-size: 1rem;
     transition: all 0.3s;
   }
   
   .navbar-button:hover {
-    background-color: #ff4b2b;
-    color: #fff;
+    background-color: #BB86FC;
+    color: #121212;
   }
   
   .navbar-button-register {
-    background-color: #ff4b2b;
-    color: #fff;
+    background-color: #BB86FC;
+    color: #121212;
   }
   
   .navbar-button-register:hover {
-    background-color: #ff416c;
-    border-color: #ff416c;
+    background-color: #BB86FC;
+    border-color: #BB86FC;
   }
   
   @media (max-width: 768px) {
@@ -83,4 +86,3 @@
       gap: 10px;
     }
   }
-  

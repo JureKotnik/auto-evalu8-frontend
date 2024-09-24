@@ -14,7 +14,7 @@
     padding: 20px;
     border-radius: 10px; /* Rounded corners */
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Shadow for a raised effect */
-    background-color: #fff; /* White background for contrast */
+    background-color: #333333; /* White background for contrast */
   }
   
   .add-car-form h2 {
@@ -34,22 +34,26 @@
   .add-car-form input {
     width: 100%; /* Full width inputs */
     padding: 10px; /* Padding for input fields */
-    border: 1px solid #ddd; /* Light border */
+    border: 1px solid #4B4B4B; /* Light border */
     border-radius: 4px; /* Rounded corners for inputs */
+    background-color: #4B4B4B;
+    color: #B2B2B2;
   }
   
   .add-car-form button {
-    padding: 10px 15px; /* Padding for button */
-    border: none; /* Remove border */
-    border-radius: 4px; /* Rounded corners for button */
-    background-color: #ff4b2b; /* Button color */
-    color: white; /* White text on button */
-    cursor: pointer; /* Pointer on hover */
-    transition: background-color 0.3s; /* Smooth transition for hover effect */
+    padding: 10px 20px;
+    background-color: transparent;
+    border: 2px solid #BB86FC;
+    border-radius: 5px;
+    color: #BB86FC;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s;
   }
   
   .add-car-form button:hover {
-    background-color: #e03b2a; /* Darker shade on hover */
+    background-color: #BB86FC;
+    color: #121212;
   }
   
   .image-preview {
@@ -62,3 +66,22 @@
     border-radius: 8px; /* Rounded corners for the preview */
   }
   
+  .add-car-form input[type="file"] {
+    display: none; /* Hide the default file input */
+  }
+  
+  .custom-file-upload {
+    display: inline-block;
+    padding: 10px 15px;
+    border: 1px solid #BB86FC;
+    border-radius: 5px;
+    background-color: #4B4B4B; /* Match dark mode */
+    color: #BB86FC; /* Accent color */
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .custom-file-upload:hover {
+    background-color: #BB86FC; /* Accent background on hover */
+    color: #121212; /* Darker text on hover */
+  }

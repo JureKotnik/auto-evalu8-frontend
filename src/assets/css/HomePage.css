@@ -2,6 +2,7 @@
     padding: 80px 20px 20px; /* Padding for the content to adjust for the fixed navbar */
     max-width: 1200px;
     margin: 0 auto;
+    background-color: #333333;
   }
   
   .search-container {
@@ -13,26 +14,29 @@
   .search-input {
     padding: 12px 15px;
     font-size: 1rem;
-    border: 2px solid #ddd;
+    border: 2px solid #4B4B4B;
     border-radius: 5px;
     flex: 1;
     max-width: 400px;
     margin-right: 10px;
+    color: #B2B2B2;
+    background-color: #333333;
   }
   
   .search-button {
     padding: 12px 20px;
-    background-color: #ff4b2b;
+    background-color: #BB86FC;
     border: none;
     border-radius: 5px;
-    color: white;
+    color: #4B4B4B;
     cursor: pointer;
     font-size: 1rem;
     transition: background-color 0.3s ease;
   }
   
   .search-button:hover {
-    background-color: #ff416c;
+    background-color: #3700B3;
+    color: #B2B2B2;
   }
   
   /* Responsive grid for car cards with different horizontal and vertical gaps */

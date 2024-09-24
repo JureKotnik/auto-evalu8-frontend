@@ -28,7 +28,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: #333333;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -36,7 +36,7 @@
 }
 
 .modal-content {
-  background-color: white;
+  background-color: #333333;
   padding: 20px;
   border-radius: 10px;
   width: 80%;
@@ -55,7 +55,7 @@
   border: none;
   font-size: 30px;
   cursor: pointer;
-  color: #333;
+  color: #B2B2B2;
 }
 
 .car-details {
@@ -80,7 +80,7 @@
 .comments-list-container {
   flex: 1; 
   overflow-y: auto; 
-  border-left: 1px solid #ddd;
+  border-left: 1px solid #B2B2B2;
   padding-left: 20px;
 }
 
@@ -92,31 +92,33 @@
 .comment-item {
   margin-bottom: 10px;
   padding: 10px;
-  border: 1px solid #ddd;
+  border: 1px solid #B2B2B2;
   border-radius: 5px;
-  background: #f9f9f9;
+  background: #4B4B4B;
+  color: #B2B2B2;
 }
 
 .comment-form {
   display: flex;
   flex-direction: column;
   margin-top: 10px;
+  background-color: #333333;
 }
 
 .comment-button {
-  align-self: flex-start;
-  margin-top: 5px;
-  background: linear-gradient(to right, #ff416c, #ff4b2b);/* Change color as needed */
-  color: white;
-  border: none;
+  padding: 10px 20px;
+  background-color: transparent;
+  border: 2px solid #BB86FC;
   border-radius: 5px;
-  padding: 10px 15px;
+  color: #BB86FC;
   cursor: pointer;
-  transition: background-color 0.3s;
+  font-size: 1rem;
+  transition: all 0.3s;
 }
 
 .comment-button:hover {
-  background: linear-gradient(to right, #ff4b2b, #ff416c);
+  background-color: #BB86FC;
+  color: #121212;
 }
 
 /* Responsive styles */
@@ -140,7 +142,7 @@
 }
 
 .review-modal-content {
-  background-color: white;
+  background-color: #4B4B4B;
   padding: 20px;
   border-radius: 10px;
   width: 400px;
@@ -160,19 +162,35 @@
 }
 
 .add-review-button {
-  background: linear-gradient(to right, #ff416c, #ff4b2b);/* Bootstrap primary color */
-  color: white;
-  border: none;
-  padding: 10px 15px;
+  padding: 10px 20px;
+  background-color: transparent;
+  border: 2px solid #BB86FC;
   border-radius: 5px;
+  color: #BB86FC;
   cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s;
 }
 
 .add-review-button:hover {
-  background: linear-gradient(to right, #ff4b2b, #ff416c);
+  background-color: #BB86FC;
+  color: #121212;
 }
 
 /* Star rating styles */
 .star-rating {
   cursor: pointer;
+}
+
+.comment-textarea {
+  width: 100%; /* Full width */
+  height: 60px; /* Set height */
+  padding: 10px; /* Padding inside the textarea */
+  border: 1px solid #4B4B4B; /* Border color */
+  border-radius: 4px; /* Rounded corners */
+  background-color: #444444; /* Dark background */
+  color: #B2B2B2; /* Light text color */
+  resize: none; /* Disable resizing */
+  font-family: 'Arial', sans-serif; /* Font styling */
+  transition: border-color 0.3s; /* Smooth transition on focus */
 }

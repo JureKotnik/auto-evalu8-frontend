@@ -63,7 +63,7 @@ const CarDetailsPage: React.FC = () => {
         ...comment,
         user: {
           id: comment.user?.id || '',
-          username: comment.user?.username || localStorage.getItem('username') || 'Anonymous', // Get username from local storage
+          //username: comment.user?.username || localStorage.getItem('username') || 'Anonymous', // Get username from local storage
         },
       }));
       setComments(enrichedComments);
@@ -149,7 +149,7 @@ const CarDetailsPage: React.FC = () => {
               ))}
             </ul>
           ) : (
-            <p>No reviews available.</p>
+            <p>Overall: <ReviewStars value={(car.averageComfort + car.averageLooks + car.averageReliability) / 3} /></p>
           )}
           <button className="add-review-button" onClick={openReviewModal}>Add Review</button>
         </div>
@@ -161,7 +161,7 @@ const CarDetailsPage: React.FC = () => {
               <ul className="comments-list">
                 {comments.map((comment) => (
                   <li key={comment.id} className="comment-item">
-                    <strong>{comment.user?.username || 'Anonymous'}:</strong> {comment.content}
+                    {comment.content}
                   </li>
                 ))}
               </ul>
@@ -171,6 +171,7 @@ const CarDetailsPage: React.FC = () => {
           </div>
           <form onSubmit={handleCommentSubmit} className="comment-form">
             <textarea
+              className="comment-textarea" // Add this class
               value={newComment}
               onChange={(e) => setNewComment(e.target.value)}
               placeholder="Leave a comment (You must be logged in to post)"
@@ -183,7 +184,7 @@ const CarDetailsPage: React.FC = () => {
       {showReviewModal && (
         <ReviewModal carId={carId!} onClose={closeReviewModal} onReviewSubmitted={handleReviewSubmitted} />
       )}
-    </div>
+     </div>
   );
 };
 
