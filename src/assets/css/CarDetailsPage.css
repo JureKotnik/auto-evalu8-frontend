@@ -1,4 +1,27 @@
-/* Full-screen modal background */
+
+
+.rating-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.rating-container p {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.review-stars {
+  display: flex;
+  align-items: center;
+}
+
+.stars {
+  color: #FFD700; /* Gold color for stars */
+  font-size: 22px;
+}
+
 .modal {
   position: fixed;
   top: 0;
@@ -12,45 +35,58 @@
   z-index: 1000;
 }
 
-/* Modal content box */
 .modal-content {
-  display: flex;
-  flex-direction: row; /* Align children in a row */
   background-color: white;
   padding: 20px;
   border-radius: 10px;
   width: 80%;
   max-width: 1000px;
-  position: relative;
+  display: flex;
+  flex-direction: row;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  position: relative; /* Relative positioning for the close button */
 }
 
-/* Car details section */
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 30px;
+  cursor: pointer;
+  color: #333;
+}
+
 .car-details {
-  flex: 2; /* Take more space */
-  margin-right: 20px; /* Space between car details and comments */
+  flex: 1;
+  margin-right: 20px;
 }
 
-/* Car image styling */
 .car-image {
-  width: 100%; /* Responsive width */
-  height: auto; /* Maintain aspect ratio */
+  width: 100%;
+  height: auto;
   border-radius: 8px;
   margin-bottom: 20px;
 }
 
-/* Comments section */
 .comments-section {
-  flex: 1; /* Take less space */
-  border-left: 1px solid #ddd; /* Divider */
-  padding-left: 20px; /* Space inside comments section */
+  width: 300px;
+  max-height: 500px; 
+  display: flex;
+  flex-direction: column;
 }
 
-/* Comments list styling */
+.comments-list-container {
+  flex: 1; 
+  overflow-y: auto; 
+  border-left: 1px solid #ddd;
+  padding-left: 20px;
+}
+
 .comments-list {
   list-style: none;
   padding: 0;
-  margin-bottom: 20px; /* Space below comments */
 }
 
 .comment-item {
@@ -58,40 +94,85 @@
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 5px;
-  background: #f9f9f9; /* Light background for comments */
+  background: #f9f9f9;
 }
 
-/* Stars rating styling */
-.stars {
-  color: #FFD700; /* Gold color for stars */
-  font-size: 22px; /* Adjust size for visibility */
+.comment-form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
 }
 
-/* Close button in the top-right corner */
-.close-button {
+.comment-button {
+  align-self: flex-start;
+  margin-top: 5px;
+  background-color: #007BFF; /* Change color as needed */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.comment-button:hover {
+  background-color: #0056b3; /* Darker shade on hover */
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .modal-content {
+    width: 95%;
+  }
+}
+
+.review-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1001; /* Ensure it's above other elements */
+}
+
+.review-modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 400px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+
+.review-modal-content .close-button {
   position: absolute;
-  top: 15px; /* Adjust as needed */
-  right: 15px; /* Adjust as needed */
+  top: 10px;
+  right: 10px;
   background: none;
   border: none;
   font-size: 30px;
   cursor: pointer;
   color: #333;
-  z-index: 1001; /* Ensure it's above the modal content */
 }
 
-/* Responsive for smaller screens */
-@media (max-width: 768px) {
-  .modal-content {
-    flex-direction: column; /* Stack vertically on small screens */
-    width: 95%;
-  }
-
-  .comments-section {
-    width: 100%; /* Full width on small screens */
-    border-left: none; /* Remove divider */
-    padding-left: 0; /* Remove padding */
-  }
+.add-review-button {
+  background-color: #007BFF; /* Bootstrap primary color */
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
-/* Other existing styles... */
+.add-review-button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Star rating styles */
+.star-rating {
+  cursor: pointer;
+}

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../assets/css/CarDetailsPage.css';
+import ReviewModal from './ReviewModal';
 
 interface Review {
   id: number;
@@ -13,7 +14,7 @@ interface Review {
 interface Comment {
   id: string;
   content: string;
-  user: { id: string; username: string } | null; // Make user nullable
+  user: { id: string; username: string } | null;
 }
 
 interface Car {
@@ -34,35 +35,35 @@ const CarDetailsPage: React.FC = () => {
   const [comments, setComments] = useState<Comment[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [newComment, setNewComment] = useState<string>('');
-  const [user, setUser] = useState<{ id: string; username: string } | null>(null);
+  const [showReviewModal, setShowReviewModal] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchCar = async () => {
-      try {
-        const response = await axios.get(`http://localhost:3000/cars/${carId}`);
-        const carData = {
-          ...response.data,
-          reviews: response.data.reviews || [],
-        };
-        setCar(carData);
-      } catch (error) {
-        setError('Failed to fetch car details');
-      }
-    };
-
-    const fetchComments = async () => {
-      try {
-        const response = await axios.get(`http://localhost:3000/comments/${carId}`);
-        setComments(response.data);
-      } catch (error) {
-        console.error('Failed to fetch comments', error);
-      }
-    };
-
     fetchCar();
     fetchComments();
   }, [carId]);
+
+  const fetchCar = async () => {
+    try {
+      const response = await axios.get(`http://localhost:3000/cars/${carId}`);
+      const carData = {
+        ...response.data,
+        reviews: response.data.reviews || [],
+      };
+      setCar(carData);
+    } catch (error) {
+      setError('Failed to fetch car details');
+    }
+  };
+
+  const fetchComments = async () => {
+    try {
+      const response = await axios.get(`http://localhost:3000/comments/${carId}`);
+      setComments(response.data);
+    } catch (error) {
+      console.error('Failed to fetch comments', error);
+    }
+  };
 
   const handleClose = () => {
     navigate('/');
@@ -78,10 +79,23 @@ const CarDetailsPage: React.FC = () => {
       }, { withCredentials: true });
 
       setComments((prevComments) => [...prevComments, response.data]);
-      setNewComment(''); // Clear input field
+      setNewComment('');
     } catch (error) {
       console.error('Failed to add comment', error);
     }
+  };
+
+  const openReviewModal = () => {
+    setShowReviewModal(true);
+  };
+
+  const closeReviewModal = () => {
+    setShowReviewModal(false);
+  };
+
+  const handleReviewSubmitted = () => {
+    fetchCar(); // Refresh car data after submitting a review
+    closeReviewModal(); // Close the modal
   };
 
   if (error) return <p>{error}</p>;
@@ -120,39 +134,40 @@ const CarDetailsPage: React.FC = () => {
               ))}
             </ul>
           ) : (
-            <p>Overall: <ReviewStars value={(car.averageComfort + car.averageLooks + car.averageReliability) / 3} /></p>
-
+            <p>No reviews available.</p>
           )}
+          <button className="add-review-button" onClick={openReviewModal}>Add Review</button>
         </div>
 
         <div className="comments-section">
           <h2>Comments</h2>
-          <form onSubmit={handleCommentSubmit}>
+          <div className="comments-list-container">
+            {comments.length > 0 ? (
+              <ul className="comments-list">
+                {comments.map((comment) => (
+                  <li key={comment.id} className="comment-item">
+                    <strong>{comment.user?.username || 'Anonymous'}:</strong> {comment.content}
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p>No comments available.</p>
+            )}
+          </div>
+          <form onSubmit={handleCommentSubmit} className="comment-form">
             <textarea
               value={newComment}
               onChange={(e) => setNewComment(e.target.value)}
               placeholder="Leave a comment (You must be logged in to post)"
             />
-            {user ? (
-              <button type="submit" className="comment-button">Comment</button>
-            ) : (
-              <p>You must be logged in to post a comment.</p>
-            )}
+            <button type="submit" className="comment-button">Comment</button>
           </form>
-
-          {comments.length > 0 ? (
-            <ul className="comments-list">
-              {comments.map((comment) => (
-                <li key={comment.id} className="comment-item">
-                  <strong>{comment.user?.username || 'Anonymous'}:</strong> {comment.content}
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p>No comments available.</p>
-          )}
         </div>
       </div>
+      
+      {showReviewModal && (
+        <ReviewModal carId={carId!} onClose={closeReviewModal} onReviewSubmitted={handleReviewSubmitted} />
+      )}
     </div>
   );
 };
@@ -164,11 +179,11 @@ interface ReviewStarsProps {
 const ReviewStars: React.FC<ReviewStarsProps> = ({ value }) => {
   const stars = Array.from({ length: 5 }, (_, i) => (i < Math.round(value) ? '★' : '☆'));
   return (
-    <span className="stars">
+    <span className="stars" style={{ color: '#FFD700' }}>
       {stars.join(' ')} ({value.toFixed(1)} / 5)
     </span>
   );
 };
 
 export default CarDetailsPage;
- 
+
